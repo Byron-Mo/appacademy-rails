@@ -1,0 +1,8 @@
+<form action="/notes" method="post">
+  <%= auth_token %>
+  <%= render "layouts/errors" %>
+  <input type="hidden" name="note[track_id]" value="<%= track.id %>">
+  <textarea name="note[text]" rows="8" cols="40"></textarea>
+  <br>
+  <input type="submit" value="Add Note">
+</form>

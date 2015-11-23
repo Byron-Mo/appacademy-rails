@@ -1,0 +1,4 @@
+<h4>Written by <%= User.find(note.user_id).email %></h4>
+
+<%= note.text %>
+<%= button_to "Delete Note", note_url(note), method: :delete %>
