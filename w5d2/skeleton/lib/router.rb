@@ -25,7 +25,6 @@ class Route
         route_params[name] = match_data[name]
       end
     end
-    # debugger
     controller = controller_class.new(req, res, route_params)
     controller.invoke_action(action_name)
   end
@@ -68,7 +67,6 @@ class Router
   # either throw 404 or call run on a matched route
   def run(req, res)
     route = self.match(req)
-    # debugger
     if route
       route.run(req, res)
     else

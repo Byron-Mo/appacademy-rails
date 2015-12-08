@@ -22,7 +22,7 @@ class ControllerBase
 
   # Set the response status code and header
   def redirect_to(url)
-    raise "Already Contains Response" if @already_built_response == true
+    raise "Already Contains Response" if already_built_response?
     res['Location']=(url)
     res.status = 302
     session.store_session(res)
@@ -33,7 +33,7 @@ class ControllerBase
   # Set the response's content type to the given type.
   # Raise an error if the developer tries to double render.
   def render_content(content, content_type)
-    raise "Already Contains Response" if @already_built_response == true
+    raise "Already Contains Response" if already_built_response?
     res['Content-Type'] = content_type
     res.body = [content]
     session.store_session(res)
@@ -44,7 +44,9 @@ class ControllerBase
   # pass the rendered html to render_content
   def render(template_name)
     controller_name = self.class.to_s.underscore
+    # dirpath = File.dirpath(__FILE__)
     template_file = "views/#{controller_name}/#{template_name.to_s.underscore}.html.erb"
+    # read contents from template file from the path
     contents = File.read(template_file)
     erb_template = ERB.new("<%= contents %>")
     content = erb_template.result(binding)
